@@ -1,6 +1,26 @@
 #!/usr/bin/python3
 def isWinner(x, nums):
+    """
+    Determines the winner of the Prime Game.
+
+    Parameters:
+    x (int): Number of rounds.
+    nums (list): List of integers representing the upper limit of the range for each round.
+
+    Returns:
+    str: Name of the player who won the most rounds ("Maria" or "Ben").
+         Returns None if there is no clear winner.
+    """
     def is_prime(num):
+        """
+        Checks if a number is prime.
+
+        Parameters:
+        num (int): The number to check.
+
+        Returns:
+        bool: True if the number is prime, False otherwise.
+        """
         if num < 2:
             return False
         for i in range(2, int(num ** 0.5) + 1):
@@ -9,6 +29,15 @@ def isWinner(x, nums):
         return True
 
     def prime_count(n):
+        """
+        Counts the number of prime numbers up to n using the Sieve of Eratosthenes.
+
+        Parameters:
+        n (int): The upper limit of the range to check for prime numbers.
+
+        Returns:
+        int: The count of prime numbers up to n.
+        """
         primes = [True] * (n + 1)
         p = 2
         while (p * p <= n):
