@@ -1,6 +1,14 @@
 #!/usr/bin/python3
 def isWinner(x, nums):
-    def sieve(n):
+    def is_prime(num):
+        if num < 2:
+            return False
+        for i in range(2, int(num ** 0.5) + 1):
+            if num % i == 0:
+                return False
+        return True
+
+    def prime_count(n):
         primes = [True] * (n + 1)
         p = 2
         while (p * p <= n):
@@ -8,25 +16,16 @@ def isWinner(x, nums):
                 for i in range(p * p, n + 1, p):
                     primes[i] = False
             p += 1
-        return [p for p in range(2, n + 1) if primes[p]]
-
-    def play_game(n):
-        primes = sieve(n)
-        moves = 0
-        while primes:
-            prime = primes.pop(0)
-            primes = [p for p in primes if p % prime != 0]
-            moves += 1
-        return moves % 2 == 1
+        return sum(primes[2:])
 
     maria_wins = 0
     ben_wins = 0
 
     for n in nums:
-        if play_game(n):
-            maria_wins += 1
-        else:
+        if prime_count(n) % 2 == 0:
             ben_wins += 1
+        else:
+            maria_wins += 1
 
     if maria_wins > ben_wins:
         return "Maria"
@@ -35,7 +34,7 @@ def isWinner(x, nums):
     else:
         return None
 
-# Example usage:
+# Example usage
 if __name__ == "__main__":
-    print(isWinner(5, [2, 5, 1, 4, 3]))  # Output: Ben
+    print("Winner: {}".format(isWinner(5, [2, 5, 1, 4, 3])))
 
